@@ -5,8 +5,12 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 openai.api_key = OPENAI_API_KEY
 
-def process_issue(issue_data, repo_data, user_data):
-    summary = get_issue_summary(issue_data, repo_data, user_data)
+def process_issue(issue_data, repo_data, user_data, mock_openai):
+    if mock_openai:
+        summary = "This is a mocked summary of the issue."
+    else:
+        summary = get_issue_summary(issue_data, repo_data, user_data)
+
     # TODO: Implement generating modifications based on the summary
     print(summary)
     return []
