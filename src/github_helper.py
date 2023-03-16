@@ -66,5 +66,28 @@ def apply_modifications(repo_data, branch_name, modifications):
 
 
 def create_pull_request(repo_data, branch_name, issue_data):
-    # TODO: Implement creating a pull request comparing the new branch with the default branch
-    pass
+    repo_full_name = repo_data["full_name"]
+    default_branch = repo_data["default_branch"]
+    issue_number = issue_data["number"]
+    issue_title = issue_data["title"]
+
+    # Step 1: Prepare the pull request title and body
+    pr_title = f"Fix for issue #{issue_number}: {issue_title}"
+    pr_body = f"This pull request contains the modifications for issue #{issue_number}."
+
+    # Step 2: Send a request to the GitHub API to create a new pull request
+    create_pr_url = f"https://api.github.com/repos/{repo_full_name}/pulls"
+    create_pr_data = {
+        "title": pr_title,
+        "body": pr_body,
+        "head": branch_name,
+        "base": default_branch
+    }
+
+    response = requests.post(create_pr_url, headers=get_github_auth_header(), json=create_pr_data)
+
+    if response.status_code != 201:
+        raise Exception(f"Failed to create pull request: {response.status_code} - {response.text}")
+
+    pr_number = response.json()["number"]
+    print(f"Created pull request #{pr_number} in repository '{repo_full_name}' for branch '{branch_name}'")
