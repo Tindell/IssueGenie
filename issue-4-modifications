@@ -1,0 +1,11 @@
+Modifications:
+The issue titled "Verify correct GitHub actions are taken when a new issue is created" is looking for confirmation that a series of automated steps are being taken when a new issue is created. These steps include:
+
+- Calling the client webhook
+- Sending the issue content to GPT
+- Summarizing a response
+- Creating a new branch
+- Creating a new file containing the summary on that branch
+- Submitting a pull request for that branch
+
+The issue was created by Tindell and is located in the Tindell/IssueGenie repository.
