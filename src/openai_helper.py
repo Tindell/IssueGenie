@@ -13,7 +13,7 @@ def process_issue(issue_data, repo_data, user_data, mock_openai):
 
     # TODO: Implement generating modifications based on the summary
     print(summary)
-    return []
+    return [summary]
 
 def get_issue_summary(issue_data, repo_data, user_data):
     prompt = f"Please provide a summary of the following issue:\n\nIssue title: {issue_data['title']}\nIssue body: {issue_data['body']}\nCreated by: {user_data['login']}\nRepository: {repo_data['full_name']}"
